@@ -24,8 +24,9 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    public void Combat(Character attacker, Character defender)
+    public void Attack(characterStatus attacker, characterStatus defender)
     {
+        int iDamage = attacker.iAttack;
 
     }
 }
