@@ -5,6 +5,7 @@ using PackageProject.SpecialHelper.CatchHand;
 
 public class Weapon : GameCatchObject {
 
+    [SerializeField]
     weaponStatus status;
 
     protected override void OnCatched()
