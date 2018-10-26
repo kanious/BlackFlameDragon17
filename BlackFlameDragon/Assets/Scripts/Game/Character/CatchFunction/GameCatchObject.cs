@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace PackageProject.SpecialHelper.CatchHand
 {
     /// <summary>
     /// 잡을 수 있는 오브젝트 클래스
     /// </summary>
-    public abstract class GameCatchObject : MonoBehaviour
+    public class GameCatchObject : MonoBehaviour
     {
         #region Inspector
+        [Header("Component")]
+        [SerializeField] private Rigidbody m_Rigidbody;
         #endregion
         #region Const
         private const int valCatchingHandListSize = 10; //m_CatchingHand 배열 사이즈
@@ -19,9 +22,9 @@ namespace PackageProject.SpecialHelper.CatchHand
         #endregion
         #region Get,Set
         /// <summary>
-        /// 해당 오브젝트르 잡고 있는 손 갯수
+        /// 해당 오브젝트를 잡고 있는 손 갯수
         /// </summary>
-        /// <value>해당 오브젝트르 잡고 있는 손 갯수</value>
+        /// <value>해당 오브젝트를 잡고 있는 손 갯수</value>
         public int catchingHandCount
         {
             get
@@ -36,19 +39,42 @@ namespace PackageProject.SpecialHelper.CatchHand
                 return count;
             }
         }
+
+        //Action
+        /// <summary>
+        /// 어떤 손에 의해 해당 오브젝트가 잡혔을 때 호출되는 이벤트
+        /// </summary>
+        public Action onCatched;
+        /// <summary>
+        /// 원래 잡혀있다가 놓아졌을 때 호출되는 이벤트
+        /// 주의사항 : 해당 이벤트가 호출되었더라도 모든 손이 놓은것은 아닐수 있음(catchingHandCount값 참고)
+        /// </summary>
+        public Action onReleased;
         #endregion
 
         #region Event
         /// <summary>
-        /// 잡기 되었을 때 호출되는 이벤트입니다.
-        /// <paramref name="catchingHandLeft">해당 오브젝트를 잡고있는 손의 수입니다.</paramref>
+        /// 어떤 손에 의해 해당 오브젝트가 잡혔을 때 호출되는 이벤트
         /// </summary>
-        internal abstract void OnCatched();
+        protected virtual void OnCatched()
+        {
+            m_Rigidbody.isKinematic = true;
+
+            if (onCatched != null)
+                onCatched();
+        }
         /// <summary>
-        /// 잡기 해제되었을 때 호출되는 이벤트입니다.
-        /// <paramref name="catchingHandLeft">남아있는 해당 오브젝트를 잡고있는 손의 수입니다.</paramref>
+        /// 원래 잡혀있다가 놓아졌을 때 호출되는 이벤트
+        /// 주의사항 : 해당 이벤트가 호출되었더라도 모든 손이 놓은것은 아닐수 있음(catchingHandCount값 참고)
         /// </summary>
-        internal abstract void OnReleased();
+        protected virtual void OnReleased()
+        {
+            if (catchingHandCount == 0)
+                m_Rigidbody.isKinematic = false;
+
+            if (onCatched != null)
+                onCatched();
+        }
         #endregion
         #region Function
         //Public

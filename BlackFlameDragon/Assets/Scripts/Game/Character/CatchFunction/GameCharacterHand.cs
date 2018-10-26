@@ -35,7 +35,7 @@ namespace PackageProject.SpecialHelper.CatchHand
         private const int valCatchEnableListMax = 10;   //m_CatchEnableList 배열 사이즈
         #endregion
         #region Value
-        public GameCatchObject[] m_CatchEnableList = new GameCatchObject[valCatchEnableListMax];   //잡을 수 있는 오브젝트 리스트
+        private GameCatchObject[] m_CatchEnableList = new GameCatchObject[valCatchEnableListMax];   //잡을 수 있는 오브젝트 리스트
         #endregion
         #region Get,Set
         /// <summary>
@@ -121,7 +121,7 @@ namespace PackageProject.SpecialHelper.CatchHand
                 switch(catchOption)
                 {
                     case CatchOptionEnum.Normal:
-                        if (catchEnableObject.catchingHandCount <= 0)
+                        if (0 < catchEnableObject.catchingHandCount)
                             return false;
                         break;
                     case CatchOptionEnum.Steal:
@@ -130,7 +130,7 @@ namespace PackageProject.SpecialHelper.CatchHand
                 }
 
                 //오브젝트 실제 잡기
-                if (catchingObject.Catch(this))
+                if (catchEnableObject.Catch(this))
                 {
                     catchingObject = catchEnableObject;
 
@@ -158,9 +158,9 @@ namespace PackageProject.SpecialHelper.CatchHand
             if(catchingObject)
             {
                 catchingObject.Release(this);
+                catchingObject = null;
             }
         }
-
         #endregion
     }
 }
