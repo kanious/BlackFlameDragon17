@@ -32,10 +32,10 @@ namespace PackageProject.SpecialHelper.CatchHand
         [SerializeField] private Transform m_HandTransform;
         #endregion
         #region Const
-        private const int valCatchEnableList = 10;
+        private const int valCatchEnableListMax = 10;   //m_CatchEnableList 배열 사이즈
         #endregion
         #region Value
-        public GameCatchObject[] m_CatchEnableList = new GameCatchObject[valCatchEnableList];   //잡을 수 있는 오브젝트 리스트
+        public GameCatchObject[] m_CatchEnableList = new GameCatchObject[valCatchEnableListMax];   //잡을 수 있는 오브젝트 리스트
         #endregion
         #region Get,Set
         /// <summary>
@@ -117,26 +117,50 @@ namespace PackageProject.SpecialHelper.CatchHand
         {
             if (catchEnableObject)
             {
-                if(catchOption == CatchOptionEnum.Normal)
+                //옵션에 따른 처리
+                switch(catchOption)
                 {
-
+                    case CatchOptionEnum.Normal:
+                        if (catchEnableObject.catchingHandCount <= 0)
+                            return false;
+                        break;
+                    case CatchOptionEnum.Steal:
+                        catchEnableObject.ReleaseAllForce();
+                        break;
                 }
 
-                catchingObject = catchEnableObject;
-
-                if (isParentChange)
+                //오브젝트 실제 잡기
+                if (catchingObject.Catch(this))
                 {
-                    Transform tr = catchingObject.transform;
-                    tr.parent = m_HandTransform;
-                    tr.localPosition = Vector3.zero;
-                    tr.localRotation = Quaternion.identity;
-                }
+                    catchingObject = catchEnableObject;
 
-                return true;
+                    if (isParentChange)
+                    {
+                        Transform tr = catchingObject.transform;
+                        tr.parent = m_HandTransform;
+                        tr.localPosition = Vector3.zero;
+                        tr.localRotation = Quaternion.identity;
+                    }
+
+                    return true;
+                }
+                else
+                    return false;
             }
-
-            return false;
+            else
+                return false;
         }
+        /// <summary>
+        /// 현재 잡고 있는 오브젝트를 떨어뜨립니다.
+        /// </summary>
+        public void Release()
+        {
+            if(catchingObject)
+            {
+                catchingObject.Release(this);
+            }
+        }
+
         #endregion
     }
 }
