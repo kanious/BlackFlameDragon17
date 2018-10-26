@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Character : MonoBehaviour {
 
-    characterStatus status;
+    [SerializeField]
+    private characterStatus status;
     
     /// <summary>
     /// 데미지 입을 시 수행, 남은 체력이 0이면 true 반환, 아니면 false
@@ -19,4 +20,14 @@ public class Character : MonoBehaviour {
         return false;
     }
 
+    public void Move()
+    {
+        
+    }
+
+    public void Attack(characterStatus attacker, characterStatus defender)
+    {
+        int iDamage = attacker.iAttack;
+
+    }
 }

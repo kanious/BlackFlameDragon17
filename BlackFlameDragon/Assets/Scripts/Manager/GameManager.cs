@@ -17,6 +17,11 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(Instance);
     }
 
+    public void Dist_Check()
+    {
+
+    }
+
     public bool Collision(Transform me, Transform you)
     {
         // 충돌 시 true 반환
@@ -24,9 +29,4 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    public void Attack(characterStatus attacker, characterStatus defender)
-    {
-        int iDamage = attacker.iAttack;
-
-    }
 }

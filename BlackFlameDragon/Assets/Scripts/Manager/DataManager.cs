@@ -17,32 +17,32 @@ public class DataManager {
 
 }
 
-public class characterStatus
+[System.Serializable] public struct characterStatus
 {
-    public int iHp = 0;
-    public int iAttack = 0;
-    public int iDefence = 0;
-    public int iGauge = 0;
-    public int iMaxGauge = 0;
+    public int iHp;
+    public int iAttack;
+    public int iDefence;
+    public int iGauge;
+    public int iMaxGauge;
+    public float fSpeed;
     
-    public characterStatus() { }
-    public characterStatus(int hp, int attack, int defence)
+    public characterStatus(int hp, int attack, int defence, float speed)
     {
         iHp = hp;
         iAttack = attack;
         iDefence = defence;
         iGauge = 0;
         iMaxGauge = 100;
+        fSpeed = speed;
     }
 }
 
-public class weaponStatus
+public struct weaponStatus
 {
-    public string sName = "";
-    public int iAttack = 0;
-    public int iDurability = 0;
-
-    public weaponStatus() { }
+    public string sName;
+    public int iAttack;
+    public int iDurability;
+    
     public weaponStatus(string name, int attack, int durability)
     {
         sName = name;
