@@ -7,20 +7,40 @@ public class GamePlayerCharacter : Character
 {
     #region Inspector
     [Header("Component")]
-    [SerializeField] private GameCharacterHand m_RightHand;
+    [SerializeField] private Transform m_BlackDragonRoot;
+    [Header("Prefab")]
+    [SerializeField] private GameObject m_BlackDragonPrefab;
     #endregion
 
+    #region Event
     private void Update()
     {
-        if (m_RightHand.catchingObject)
+        if (Input.GetKeyDown(KeyCode.A))
+            Attack();
+        else if (Input.GetKeyDown(KeyCode.Space))            
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-                m_RightHand.Release();
+            if (status.RightHand.catchingObject)
+                Release();
+            else
+                Catch();
         }
-        else
+        else if(Input.GetKeyDown(KeyCode.S))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-                m_RightHand.Catch();
+            Throw();
+        }
+        else if(Input.GetKeyDown(KeyCode.D))
+        {
+            BlackDragon();
         }
     }
+    #endregion
+    #region Function
+    void BlackDragon()
+    {
+        GameObject go = Instantiate(m_BlackDragonPrefab);
+        Transform tr = go.transform;
+        tr.position = m_BlackDragonRoot.position;
+        tr.rotation = m_BlackDragonRoot.rotation;
+    }
+    #endregion
 }

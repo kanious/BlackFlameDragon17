@@ -39,6 +39,17 @@ namespace PackageProject.SpecialHelper.CatchHand
                 return count;
             }
         }
+        /// <summary>
+        /// 사용하고 있는 리지드바디
+        /// </summary>
+        /// <value>사용하고 있는 리지드바디</value>
+        public Rigidbody objectRigidbody
+        {
+            get
+            {
+                return m_Rigidbody;
+            }
+        }
 
         //Action
         /// <summary>

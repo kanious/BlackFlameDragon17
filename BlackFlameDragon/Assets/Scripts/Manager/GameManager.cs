@@ -5,6 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     #region Inspector
+    [Header("Balance - Attack")]    //공격 관련 밸런스 변수
+    [SerializeField] private float m_WeaponDamageMinSpeed;          //해당 값 이하의 속도인 무기는 공격력 배율이 0이다.
+    [SerializeField] private float m_WeaponDamageStandardSpeed;     //해당 값의 속도 이상인 무기는 공격력 배율이 1이다.
     #endregion
 
     public static GameManager Instance = null;
@@ -12,9 +15,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         if (null == Instance)
-            Instance = new GameManager();
-
-        DontDestroyOnLoad(Instance);
+            Instance = this;
     }
 
     public void Dist_Check()
@@ -29,4 +30,10 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    #region Function
+    public float GetDamageFactor(float speed)
+    {
+        return Mathf.InverseLerp(m_WeaponDamageMinSpeed, m_WeaponDamageStandardSpeed, speed);
+    }
+    #endregion
 }
