@@ -374,6 +374,31 @@ MonoBehaviour:
   maxRenderScale: 1
   _headPoseRelativeOffsetRotation: {x: 0, y: 0, z: 0}
   _headPoseRelativeOffsetTranslation: {x: 0, y: 0, z: 0}
+  expandMixedRealityCapturePropertySheet: 0
+  enableMixedReality: 0
+  compositionMethod: 0
+  extraHiddenLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  capturingCameraDevice: 0
+  flipCameraFrameHorizontally: 0
+  flipCameraFrameVertically: 0
+  handPoseStateLatency: 0
+  sandwichCompositionRenderLatency: 0
+  sandwichCompositionBufferedFrames: 8
+  chromaKeyColor: {r: 0, g: 1, b: 0, a: 1}
+  chromaKeySimilarity: 0.6
+  chromaKeySmoothRange: 0.03
+  chromaKeySpillRange: 0.06
+  useDynamicLighting: 0
+  depthQuality: 1
+  dynamicLightingSmoothFactor: 8
+  dynamicLightingDepthVariationClampingValue: 0.001
+  virtualGreenScreenType: 0
+  virtualGreenScreenTopY: 10
+  virtualGreenScreenBottomY: -10
+  virtualGreenScreenApplyDepthCulling: 0
+  virtualGreenScreenDepthTolerance: 0.2
   _trackingOriginType: 0
   usePositionTracking: 1
   useRotationTracking: 1
@@ -2244,7 +2269,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5, z: 1.5}
+  m_Size: {x: 0.2, y: 0.2, z: 0.4}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65279613025268956
 BoxCollider:
@@ -2256,7 +2281,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5, z: 1.5}
+  m_Size: {x: 0.2, y: 0.2, z: 0.4}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95044215951641432
 Animator:
@@ -2417,8 +2442,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   status:
     iHp: 10000000
-    iMaxHp: 0
-    iAttack: 0
+    iMaxHp: 1000000
+    iAttack: 2
     iDefence: 0
     iGauge: 0
     iMaxGauge: 0
@@ -2426,8 +2451,8 @@ MonoBehaviour:
     RightHand: {fileID: 114315556064909144}
     LeftHand: {fileID: 114716929002450600}
   m_BlackDragonRoot: {fileID: 4403875718444344}
-  m_LeftHand: {fileID: 0}
-  m_RightHand: {fileID: 0}
+  m_LeftHand: {fileID: 114716929002450600}
+  m_RightHand: {fileID: 114315556064909144}
   m_BlackDragonPrefab: {fileID: 1215089574487362, guid: 54db17360d95345ecba939d5e15a4289,
     type: 2}
 --- !u!114 &114814064252544740
@@ -2455,7 +2480,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 1
   m_Height: 4
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

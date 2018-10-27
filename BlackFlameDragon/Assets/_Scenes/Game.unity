@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -224,7 +224,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &370687604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,8 +295,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e11d8bcacfd4a489502b44824e0992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_WeaponDamageMinSpeed: 0
-  m_WeaponDamageStandardSpeed: 0.01
+  m_WeaponDamageMinSpeed: 0.1
+  m_WeaponDamageStandardSpeed: 0.5
   fProgressTime: 0
   Player: {fileID: 885867236}
 --- !u!1001 &575064278
@@ -443,6 +443,36 @@ Prefab:
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 65035568865954528, guid: ce816f2e6abb0504092c23ed9b970dfd,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 65279613025268956, guid: ce816f2e6abb0504092c23ed9b970dfd,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 65035568865954528, guid: ce816f2e6abb0504092c23ed9b970dfd,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 65279613025268956, guid: ce816f2e6abb0504092c23ed9b970dfd,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 65035568865954528, guid: ce816f2e6abb0504092c23ed9b970dfd,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 65279613025268956, guid: ce816f2e6abb0504092c23ed9b970dfd,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}

@@ -63,7 +63,6 @@ public class Weapon : GameCatchObject
                 float speed = (transform.position - m_LastedPos).magnitude;
                 if (speed < minSpeed)
                     speed = minSpeed;
-                Debug.Log(speed);
                 OnWeaponCollisionEnter(target, speed, m_Damage);
             }
         }
@@ -82,7 +81,6 @@ public class Weapon : GameCatchObject
             if (0 < realDamage)
             {
                 target.Damaged(realDamage);
-                Debug.Log("Damaged");
             }
         }
     }

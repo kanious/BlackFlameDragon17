@@ -30,6 +30,7 @@ public class GameEnemyCharacter : Character
     public Image hpBar;
     private Coroutine m_DieCoroutine;
     private Coroutine m_HittingCoroutine;
+    private Coroutine m_AttackingCoroutine;
     private float m_AttackDelayTimer;
     #region Get,Set
     private bool isDied
@@ -86,7 +87,7 @@ public class GameEnemyCharacter : Character
     }
     private void Update()
     {
-        if (!isDied && !isHitting)
+        if (!isDied && !isHitting && m_AttackingCoroutine == null)
         {
             if (0 < m_AttackDelayTimer)
                 m_AttackDelayTimer -= Time.deltaTime;
@@ -138,10 +139,12 @@ public class GameEnemyCharacter : Character
 
         if (collision.collider.attachedRigidbody)
         {
+            Debug.Log(collision.collider.attachedRigidbody.name);
             GamePlayerCharacter cha = collision.collider.attachedRigidbody.GetComponent<GamePlayerCharacter>();
             if(cha)
             {
                 Attack();
+                Debug.Log("ASDF");
             }
         }
     }
@@ -151,6 +154,10 @@ public class GameEnemyCharacter : Character
     {
         if (!isDied && !isHitting)
         {
+            if (m_AttackingCoroutine != null)
+                StopCoroutine(m_AttackingCoroutine);
+            m_AttackingCoroutine = null;
+
             if (base.Damaged(value))
             {
                 Right_Release();
@@ -164,6 +171,7 @@ public class GameEnemyCharacter : Character
             }
             else
             {
+                m_Rigidbody.velocity = (transform.forward * -1 + transform.up) * 3;
                 if (m_CatchingWeaponRight)
                     m_Animator.Play("Hit_Weapon");
                 else
@@ -194,7 +202,8 @@ public class GameEnemyCharacter : Character
     }
     public void Attack()
     {
-        if (m_AttackDelayTimer <= 0)
+        Debug.Log("Attack");
+        if (m_AttackDelayTimer <= 0 && !isDied && !isHitting && m_AttackingCoroutine == null)
         {
             if (m_PunchLeft)
                 m_PunchLeft.SetAttackEnable(true);
@@ -205,12 +214,12 @@ public class GameEnemyCharacter : Character
 
             if (m_CatchingWeaponRight)
             {
-                m_HittingCoroutine = StartCoroutine(HitCoroutine(2.5f, true));
+                m_AttackingCoroutine = StartCoroutine(AttackCoroutine(2.5f));
                 m_Animator.Play("Attack_Weapon");
             }
             else
             {
-                m_HittingCoroutine = StartCoroutine(HitCoroutine(3.5f, true));
+                m_AttackingCoroutine = StartCoroutine(AttackCoroutine(3.5f));
                 m_Animator.Play("Attack_Hand");
             }
             m_AttackDelayTimer = m_AttackDelay;
@@ -221,20 +230,22 @@ public class GameEnemyCharacter : Character
         if (m_CatchingWeaponRight)
             m_Animator.Play("Throw");
     }
-    IEnumerator HitCoroutine(float time, bool ASDF = false)
+    IEnumerator AttackCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        m_AttackingCoroutine = null;
+
+        if (m_PunchLeft)
+            m_PunchLeft.SetAttackEnable(false);
+        if (m_PunchRight)
+            m_PunchRight.SetAttackEnable(false);
+        if (m_CatchingWeaponRight)
+            m_CatchingWeaponRight.SetAttackEnable(false);
+    }
+    IEnumerator HitCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
         m_HittingCoroutine = null;
-
-        if(ASDF)
-        {
-            if (m_PunchLeft)
-                m_PunchLeft.SetAttackEnable(false);
-            if (m_PunchRight)
-                m_PunchRight.SetAttackEnable(false);
-            if (m_CatchingWeaponRight)
-                m_CatchingWeaponRight.SetAttackEnable(false);
-        }
     }
     #endregion
 }
