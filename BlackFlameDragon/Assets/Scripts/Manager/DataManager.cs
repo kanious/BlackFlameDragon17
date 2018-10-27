@@ -21,6 +21,7 @@ public class DataManager {
 public struct characterStatus
 {
     public int iHp;
+    public int iMaxHp;
     public int iAttack;
     public int iDefence;
     public int iGauge;
