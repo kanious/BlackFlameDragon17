@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class GameEnemyCharacter : Character
 {
     [Header("Component")]
+    [SerializeField] private Rigidbody m_Rigidbody;
     [SerializeField] private Animator m_Animator;
     [SerializeField] private Weapon m_Me;   //자기자신도 플레이어한테는 무기임
     [SerializeField] private Transform m_AniModel;
@@ -19,6 +20,9 @@ public class GameEnemyCharacter : Character
     [Header("Prefab")]
     [SerializeField] private GameObject m_StartingWeaponPrefab;   //처음에 가지고 시작할 무기 프리팹
 
+    [Header("Balance")]
+    [SerializeField] private float m_AttackDelay;
+
     private float m_MoveDelay = 1.0f;
     private bool m_IsMoveEnable = true;
     public int index;
@@ -26,6 +30,7 @@ public class GameEnemyCharacter : Character
     public Image hpBar;
     private Coroutine m_DieCoroutine;
     private Coroutine m_HittingCoroutine;
+    private float m_AttackDelayTimer;
     #region Get,Set
     private bool isDied
     {
@@ -46,6 +51,7 @@ public class GameEnemyCharacter : Character
     #region Event
     protected override void Awake()
     {
+        base.Awake();
         m_Me.onCatched += OnCatched;
         m_Me.onReleased += OnReleased;
 
@@ -57,29 +63,32 @@ public class GameEnemyCharacter : Character
         status.iMaxGauge = 100;
         status.fSpeed = 2;
 
+
         //시작무기가있을 경우 생성/잡기
         if (m_StartingWeaponPrefab)
         {
             GameObject go = Instantiate(m_StartingWeaponPrefab);
-            Catch(go.GetComponent<Weapon>());
+            Right_Catch(go.GetComponent<Weapon>());
         }
 
         //Idle애니 플레이
-        if (m_CatchingWeapon)
+        if (m_CatchingWeaponRight)
             m_Animator.Play("Idle_Weapon");
         else
             m_Animator.Play("Idle_Hand");
 
-    }
-    private IEnumerator Start()
-    {
-        yield return new WaitForSeconds(2.0f);
-        Damaged(1);
+        /*
+        if (m_PunchLeft)
+            m_PunchLeft.SetMinSpeed(1000);
+        if (m_PunchRight)
+            m_PunchRight.SetMinSpeed(1000);*/
     }
     private void Update()
     {
         if (!isDied && !isHitting)
         {
+            if (0 < m_AttackDelayTimer)
+                m_AttackDelayTimer -= Time.deltaTime;
             if (0 < m_MoveDelay)
             {
                 m_MoveDelay -= Time.deltaTime;
@@ -93,7 +102,7 @@ public class GameEnemyCharacter : Character
                 this.transform.position = Vector3.MoveTowards(this.transform.position
                     , GameManager.Instance.Player.transform.position, Time.deltaTime * status.fSpeed);
 
-                if (m_CatchingWeapon)
+                if (m_CatchingWeaponRight)
                     m_Animator.Play("Run_Weapon");
                 else
                     m_Animator.Play("Run_Hand");
@@ -113,11 +122,22 @@ public class GameEnemyCharacter : Character
     }
     public void OnThrowAnimationEvent()
     {
-        if (m_CatchingWeapon)
+        if (m_CatchingWeaponRight)
         {
-            Weapon throwWeapon = m_CatchingWeapon;
+            Weapon throwWeapon = m_CatchingWeaponRight;
             Right_Release();
             throwWeapon.objectRigidbody.velocity = transform.TransformDirection(new Vector3(0, 3, 10));
+        }
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        if(collision.collider.attachedRigidbody)
+        {
+            GamePlayerCharacter cha = collision.collider.attachedRigidbody.GetComponent<GamePlayerCharacter>();
+            if(cha)
+            {
+                Attack();
+            }
         }
     }
     #endregion
@@ -129,18 +149,22 @@ public class GameEnemyCharacter : Character
             if (base.Damaged(value))
             {
                 Right_Release();
-                SpawnManager.Instance.RemoveEnemy(gameObject);
                 m_Animator.Play("Die");
+                m_Rigidbody.velocity = Vector3.zero;
+                m_Rigidbody.isKinematic = true;
+                Collider[] col = m_Rigidbody.GetComponentsInChildren<Collider>();
+                for (int i = 0; i < col.Length; ++i)
+                    col[i].enabled = false;
                 m_DieCoroutine = StartCoroutine(DieCoroutine());
             }
             else
             {
-                if (m_CatchingWeapon)
+                if (m_CatchingWeaponRight)
                     m_Animator.Play("Hit_Weapon");
                 else
                     m_Animator.Play("Hit_Hand");
 
-                m_HittingCoroutine = StartCoroutine(HitCoroutine());
+                m_HittingCoroutine = StartCoroutine(HitCoroutine(1.0f));
             }
             return true;
         }
@@ -161,25 +185,51 @@ public class GameEnemyCharacter : Character
             else
                 yield return null;
         }
-        Destroy(gameObject);
+        SpawnManager.Instance.RemoveEnemy(gameObject);
     }
     public void Attack()
     {
-        if (m_CatchingWeapon)
-            m_Animator.Play("Attack_Weapon");
-        else
-            m_Animator.Play("Attack_Hand");
-        //무기의 속도 / 방향에 따라서 데미지 변경하기 코드 만들기
+        if (m_AttackDelayTimer <= 0)
+        {
+            if (m_PunchLeft)
+                m_PunchLeft.SetAttackEnable(true);
+            if (m_PunchRight)
+                m_PunchRight.SetAttackEnable(true);
+            if (m_CatchingWeaponRight)
+                m_CatchingWeaponRight.SetAttackEnable(true);
+
+            if (m_CatchingWeaponRight)
+            {
+                m_HittingCoroutine = StartCoroutine(HitCoroutine(2.5f, true));
+                m_Animator.Play("Attack_Weapon");
+            }
+            else
+            {
+                m_HittingCoroutine = StartCoroutine(HitCoroutine(3.5f, true));
+                m_Animator.Play("Attack_Hand");
+            }
+            m_AttackDelayTimer = m_AttackDelay;
+        }
     }
     public void Throw()
     {
-        if (m_CatchingWeapon)
+        if (m_CatchingWeaponRight)
             m_Animator.Play("Throw");
     }
-    IEnumerator HitCoroutine()
+    IEnumerator HitCoroutine(float time, bool ASDF = false)
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(time);
         m_HittingCoroutine = null;
+
+        if(ASDF)
+        {
+            if (m_PunchLeft)
+                m_PunchLeft.SetAttackEnable(false);
+            if (m_PunchRight)
+                m_PunchRight.SetAttackEnable(false);
+            if (m_CatchingWeaponRight)
+                m_CatchingWeaponRight.SetAttackEnable(false);
+        }
     }
     #endregion
 }
