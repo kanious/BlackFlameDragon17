@@ -81,6 +81,8 @@ public class Weapon : GameCatchObject
             if (0 < realDamage)
             {
                 target.Damaged(realDamage);
+                Vector3 effectPos = (target.transform.position + transform.position) * 0.5f;
+                EffectManager.instance.SpawnEffect(effectPos);
             }
         }
     }
