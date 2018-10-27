@@ -7,12 +7,18 @@ using UnityEngine.UI;
 
 public class GameEnemyCharacter : Character {
 
+    [SerializeField] private Weapon m_Me;
+
+    private bool m_IsMoveEnable = true;
     public int index;
     public float fTime;
     public Image hpBar;
-    
-    private void Awake()
+
+    protected override void Awake()
     {
+        m_Me.onCatched += OnCatched;
+        m_Me.onReleased += OnReleased;
+
         status.iHp = 100;
         status.iMaxHp = 100;
         status.iAttack = 5;
@@ -26,17 +32,32 @@ public class GameEnemyCharacter : Character {
 
     private void Update()
     {
-        this.transform.LookAt(GameManager.Instance.Player.transform);
-        this.transform.position = Vector3.MoveTowards(this.transform.position
-            , GameManager.Instance.Player.transform.position, Time.deltaTime * status.fSpeed);
-
-        fTime += Time.deltaTime;
-        if(6f < fTime)
+        if (m_IsMoveEnable)
+        {
+            this.transform.LookAt(GameManager.Instance.Player.transform);
+            this.transform.position = Vector3.MoveTowards(this.transform.position
+                , GameManager.Instance.Player.transform.position, Time.deltaTime * status.fSpeed);
+        }
+    }
+    private void OnCatched()
+    {
+        m_IsMoveEnable = false;
+    }
+    private void OnReleased()
+    {
+        if (m_Me.catchingHandCount <= 0)
+        {
+            m_IsMoveEnable = true;
+        }
+    }
+    internal override bool Damaged(int value)
+    {
+        if (base.Damaged(value))
         {
             SpawnManager.Instance.RemoveEnemy(gameObject);
-            Destroy(this.gameObject);
+            return true;
         }
-
-        hpBar.fillAmount = (float)status.iHp / (float)status.iMaxHp;
+        else
+            return false;
     }
 }

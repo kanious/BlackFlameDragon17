@@ -15,7 +15,15 @@ public class GamePlayerCharacter : Character
     #region Event
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Move(move);
+
+        if (Input.GetKey(KeyCode.Q))
+            transform.localEulerAngles += Vector3.up * -50 * Time.deltaTime;
+        else if (Input.GetKey(KeyCode.E))
+            transform.localEulerAngles += Vector3.up * 50 * Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Z))
             Attack();
         else if (Input.GetKeyDown(KeyCode.Space))            
         {
@@ -24,11 +32,11 @@ public class GamePlayerCharacter : Character
             else
                 Catch();
         }
-        else if(Input.GetKeyDown(KeyCode.S))
+        else if(Input.GetKeyDown(KeyCode.X))
         {
             Throw();
         }
-        else if(Input.GetKeyDown(KeyCode.D))
+        else if(Input.GetKeyDown(KeyCode.C))
         {
             BlackDragon();
         }

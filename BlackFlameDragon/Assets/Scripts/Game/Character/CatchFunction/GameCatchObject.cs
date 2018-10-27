@@ -70,6 +70,7 @@ namespace PackageProject.SpecialHelper.CatchHand
         protected virtual void OnCatched()
         {
             m_Rigidbody.isKinematic = true;
+            m_Rigidbody.velocity = Vector3.zero;
 
             if (onCatched != null)
                 onCatched();
@@ -83,8 +84,8 @@ namespace PackageProject.SpecialHelper.CatchHand
             if (catchingHandCount == 0)
                 m_Rigidbody.isKinematic = false;
 
-            if (onCatched != null)
-                onCatched();
+            if (onReleased != null)
+                onReleased();
         }
         #endregion
         #region Function

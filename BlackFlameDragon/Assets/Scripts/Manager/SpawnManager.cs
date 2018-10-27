@@ -35,7 +35,7 @@ public class SpawnManager : MonoBehaviour {
             return;
 
         fTime += Time.deltaTime;
-        if(1f < fTime)
+        if(1f < fTime && GameManager.Instance.Player)
         {
             fTime = 0f;
 

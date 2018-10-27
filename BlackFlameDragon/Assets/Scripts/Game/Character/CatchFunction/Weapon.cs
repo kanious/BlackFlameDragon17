@@ -25,7 +25,8 @@ public class Weapon : GameCatchObject
     private void Awake()
     {
         m_LastedPos = transform.position;
-        m_CatchCollider.enabled = true;
+        if(m_CatchCollider)
+            m_CatchCollider.enabled = true;
         for (int i = 0; i < m_AttackTrigger.Length; ++i)
             m_AttackTrigger[i].enabled = false;
     }
@@ -50,8 +51,6 @@ public class Weapon : GameCatchObject
     }
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("WeaponOnCollisionEnter");
-
         if (other.attachedRigidbody)
         {
             Character target = other.attachedRigidbody.GetComponent<Character>();
@@ -95,6 +94,8 @@ public class Weapon : GameCatchObject
             m_CatchCollider.enabled = true;
             for (int i = 0; i < m_AttackTrigger.Length; ++i)
                 m_AttackTrigger[i].enabled = false;
+
+            transform.SetParent(null);
         }
     }
     #endregion

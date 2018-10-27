@@ -28,7 +28,8 @@ public class TheBlackFlameDragon : MonoBehaviour
         if(other.attachedRigidbody)
         {
             Character character = other.attachedRigidbody.GetComponent<GameEnemyCharacter>();
-            character.Damaged(m_Damage);
+            if(character)
+                character.Damaged(m_Damage);
         }
     }
 }

@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4621104492081978}
   - component: {fileID: 114671320268751868}
   - component: {fileID: 54227027418859108}
+  - component: {fileID: 114393242362599478}
+  - component: {fileID: 136883050600789304}
   m_Layer: 0
   m_Name: EnemyCharacter
   m_TagString: Untagged
@@ -286,6 +288,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 554bd2d4243adbf47a8f80410f55305a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114393242362599478
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1002279233205834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b171d1ddecc5d24da0373ff3334a0b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Rigidbody: {fileID: 54227027418859108}
+  m_CatchCollider: {fileID: 136428217034027034}
+  m_AttackTrigger:
+  - {fileID: 136883050600789304}
+  m_Damage: 100
 --- !u!114 &114497235161309638
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -366,7 +384,8 @@ MonoBehaviour:
     iGauge: 0
     iMaxGauge: 100
     fSpeed: 2
-    RightHand: {fileID: 0}
+    RightHand: {fileID: 114497235161309638}
+  m_Me: {fileID: 114393242362599478}
   index: 0
   fTime: 0
   hpBar: {fileID: 114704108260569246}
@@ -422,6 +441,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &136883050600789304
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1002279233205834}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!222 &222515029775004722
 CanvasRenderer:
   m_ObjectHideFlags: 1

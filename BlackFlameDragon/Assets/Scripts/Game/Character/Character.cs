@@ -30,13 +30,14 @@ public class Character : MonoBehaviour {
         {
             Weapon throwWeapon = m_CatchingWeapon;
             Release();
-            throwWeapon.objectRigidbody.velocity = transform.TransformDirection(new Vector3(0,3,3));
+            throwWeapon.objectRigidbody.velocity = transform.TransformDirection(new Vector3(0,3,10));
         }
     }
     #endregion
     #region Function
-    public void Move()
+    public void Move(Vector3 velocity)
     {
+        transform.position += transform.TransformDirection(velocity) * status.fSpeed * Time.deltaTime;
     }
     public void Attack()
     {
@@ -71,12 +72,15 @@ public class Character : MonoBehaviour {
     /// <summary>
     /// 데미지 입을 시 수행, 남은 체력이 0이면 true 반환, 아니면 false
     /// </summary>
-    internal bool Damaged(int value)
+    internal virtual bool Damaged(int value)
     {
         status.iHp -= value;
 
         if (0 >= status.iHp)
+        {
+            Destroy(gameObject);
             return true;
+        }
 
         return false;
     }
