@@ -52,5 +52,6 @@ public class SpawnManager : MonoBehaviour {
     public void RemoveEnemy(GameObject me)
     {
         EnemyList.Remove(me);
+        Destroy(me);
     }
 }

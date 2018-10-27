@@ -116,7 +116,7 @@ public class GameEnemyCharacter : Character
         if (m_CatchingWeapon)
         {
             Weapon throwWeapon = m_CatchingWeapon;
-            Release();
+            Right_Release();
             throwWeapon.objectRigidbody.velocity = transform.TransformDirection(new Vector3(0, 3, 10));
         }
     }
@@ -128,7 +128,7 @@ public class GameEnemyCharacter : Character
         {
             if (base.Damaged(value))
             {
-                Release();
+                Right_Release();
                 SpawnManager.Instance.RemoveEnemy(gameObject);
                 m_Animator.Play("Die");
                 m_DieCoroutine = StartCoroutine(DieCoroutine());

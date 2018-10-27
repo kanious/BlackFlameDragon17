@@ -83,7 +83,6 @@ public class Character : MonoBehaviour {
 
         if (0 >= status.iHp)
         {
-            Destroy(gameObject);
             return true;
         }
 
