@@ -72,7 +72,8 @@ public class GameEnemyCharacter : Character
         status.iMaxGauge = 100;
         status.fSpeed = 2;
 
-
+        player = GameObject.Find("PlayerCharacter").GetComponent<GamePlayerCharacter>();
+        
         //시작무기가있을 경우 생성/잡기
         if (m_StartingWeaponPrefab)
         {

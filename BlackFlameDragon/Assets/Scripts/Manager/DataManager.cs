@@ -11,12 +11,22 @@ public class DataManager : MonoBehaviour
     {
         if (null == Instance)
             Instance = this;
+
+        DontDestroyOnLoad(Instance);
+
+        Score = 0;
+        Death = false;
     }
 
-    public int Score = 0;
+    public static int Score = 0;
+    public static bool Death = false;
     public void AddScore(int value)
     {
         Score += value;
+    }
+    public void isDeath(bool _death)
+    {
+        Death = _death;
     }
 }
 

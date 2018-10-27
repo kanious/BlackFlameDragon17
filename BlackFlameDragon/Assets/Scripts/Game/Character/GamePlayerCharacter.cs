@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using PackageProject.SpecialHelper.CatchHand;
+using UnityEngine.SceneManagement;
 
 public class GamePlayerCharacter : Character
 {
@@ -61,7 +62,7 @@ public class GamePlayerCharacter : Character
         
         HPImage.fillAmount = (float)status.iHp / (float)status.iMaxHp;
         SkillImage.fillAmount = (float)status.iGauge / (float)status.iMaxGauge;
-        scoreText.text = "Kill Enemies : " + DataManager.Instance.Score;
+        scoreText.text = "Kill Enemies : " + DataManager.Score;
     }
     #endregion
     #region Function
@@ -77,16 +78,13 @@ public class GamePlayerCharacter : Character
 
     internal override bool Damaged(int value)
     {
-        status.iHp -= value;
-        AddGauge(value);
-        effect.DamageEffect_On();
-
-        if (0 >= status.iHp)
+        if (base.Damaged(value))
         {
-            return true;
+            DataManager.Instance.isDeath(true);
+            SceneManager.LoadScene("Result");
         }
 
-        return false;
+        return true;
     }
 
     public void AddGauge(int value)
