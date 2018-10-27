@@ -26,7 +26,7 @@ public class SpawnManager : MonoBehaviour {
     {
         if (180f > fSpawnAngle)
         {
-            fSpawnAngle += GameManager.Instance.fProgressTime * 0.005f;
+            fSpawnAngle += GameManager.Instance.fProgressTime * 0.002f;
             if (180f <= fSpawnAngle)
                 fSpawnAngle = 180f;
         }
@@ -35,7 +35,7 @@ public class SpawnManager : MonoBehaviour {
             return;
 
         fTime += Time.deltaTime;
-        if(1f < fTime && GameManager.Instance.Player)
+        if(2f < fTime && GameManager.Instance.Player)
         {
             fTime = 0f;
 

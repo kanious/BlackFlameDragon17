@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PackageProject.SpecialHelper.CatchHand;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour {
 
@@ -34,6 +35,7 @@ public class Character : MonoBehaviour {
     #endregion
 
     public DamagedEffect effect;
+    public Text scoreText;
 
     #region Event
     protected virtual void Awake()
