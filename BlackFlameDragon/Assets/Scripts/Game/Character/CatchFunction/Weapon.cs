@@ -11,7 +11,7 @@ public class Weapon : GameCatchObject
     [SerializeField] private Collider[] m_AttackTrigger;  //공격할 때 사용하는 트리거
 
     [Header("Balance")]
-    [SerializeField] private int m_Damage;
+    [SerializeField] public int m_Damage;
     #endregion
     #region Const
     private const int valDamagedCharacterListSize = 10; //데미지를 이미 입은 상태의 캐릭터 리스트의 크기
@@ -19,6 +19,7 @@ public class Weapon : GameCatchObject
     #region Value
     private bool m_IsPlayerWeapon;
     private Vector3 m_LastedPos;
+    float minSpeed;
     #endregion
 
     #region Event
@@ -34,21 +35,22 @@ public class Weapon : GameCatchObject
     {
         m_LastedPos = transform.position;
     }
+    /*
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("WeaponOnCollisionEnter");
-
         if (collision.collider.attachedRigidbody)
         {
             Character target = collision.collider.attachedRigidbody.GetComponent<Character>();
 
             if (target)
             {
+                //Debug.Log("ASDFASDFASDF");
                 float speed = (transform.position - m_LastedPos).magnitude;
                 OnWeaponCollisionEnter(target, speed, m_Damage);
             }
         }
     }
+    */
     void OnTriggerEnter(Collider other)
     {
         if (other.attachedRigidbody)
@@ -58,6 +60,9 @@ public class Weapon : GameCatchObject
             if (target)
             {
                 float speed = (transform.position - m_LastedPos).magnitude;
+                if (speed < minSpeed)
+                    speed = minSpeed;
+                Debug.Log(speed);
                 OnWeaponCollisionEnter(target, speed, m_Damage);
             }
         }
@@ -74,7 +79,10 @@ public class Weapon : GameCatchObject
 
             //데미지가 0 이상이면 실제 데미지를 입힌다.
             if (0 < realDamage)
+            {
                 target.Damaged(realDamage);
+                Debug.Log("Damaged");
+            }
         }
     }
 
@@ -101,6 +109,10 @@ public class Weapon : GameCatchObject
     #endregion
     #region Function
     //Public
+    public void SetMinSpeed(float speed)
+    {
+        minSpeed = speed;
+    }
     /// <summary>
     /// 주운 캐릭터를 설정한다.
     /// </summary>
@@ -108,6 +120,11 @@ public class Weapon : GameCatchObject
     public void SetOwnerCharacter(Character character)
     {
         m_IsPlayerWeapon = GetIsPlayerCharacter(character);
+    }
+    public void SetAttackEnable(bool isEnable)
+    {
+        for (int i = 0; i < m_AttackTrigger.Length; ++i)
+            m_AttackTrigger[i].enabled = isEnable;
     }
 
     //Private
