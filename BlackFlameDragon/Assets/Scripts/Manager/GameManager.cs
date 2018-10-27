@@ -10,12 +10,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float m_WeaponDamageStandardSpeed;     //해당 값의 속도 이상인 무기는 공격력 배율이 1이다.
     #endregion
 
+    public float fProgressTime = 0f;
+    public GamePlayerCharacter Player;
+
     public static GameManager Instance = null;
 
     private void Awake()
     {
         if (null == Instance)
             Instance = this;
+    }
+
+    private void Update()
+    {
+        fProgressTime += Time.deltaTime;
     }
 
     public void Dist_Check()
