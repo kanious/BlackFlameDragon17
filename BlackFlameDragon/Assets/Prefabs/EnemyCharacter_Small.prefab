@@ -269,7 +269,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1405163802620366
 GameObject:
   m_ObjectHideFlags: 1
@@ -1352,7 +1352,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 782bf2f09227f4fada30a27451ed3953, type: 3}
+  - {fileID: 2100000, guid: 98b5492a263fa442bb4580cb8797199e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1387,7 +1387,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 782bf2f09227f4fada30a27451ed3953, type: 3}
+  - {fileID: 2100000, guid: 98b5492a263fa442bb4580cb8797199e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1422,7 +1422,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 782bf2f09227f4fada30a27451ed3953, type: 3}
+  - {fileID: 2100000, guid: 98b5492a263fa442bb4580cb8797199e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1457,7 +1457,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 782bf2f09227f4fada30a27451ed3953, type: 3}
+  - {fileID: 2100000, guid: 98b5492a263fa442bb4580cb8797199e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1492,7 +1492,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 782bf2f09227f4fada30a27451ed3953, type: 3}
+  - {fileID: 2100000, guid: 98b5492a263fa442bb4580cb8797199e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1761,7 +1761,9 @@ MonoBehaviour:
   m_AttackDelay: 1
   index: 0
   fTime: 0
+  hpBarObj: {fileID: 1186484593222700}
   hpBar: {fileID: 114704108260569246}
+  player: {fileID: 0}
 --- !u!114 &114704108260569246
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1874,7 +1876,7 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 782bf2f09227f4fada30a27451ed3953, type: 3}
+  - {fileID: 2100000, guid: 1dfb0a6e1d7e04875963dbe6a3f91390, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

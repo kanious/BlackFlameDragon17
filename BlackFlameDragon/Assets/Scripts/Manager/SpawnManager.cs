@@ -53,5 +53,6 @@ public class SpawnManager : MonoBehaviour {
     {
         EnemyList.Remove(me);
         Destroy(me);
+        DataManager.Instance.AddScore(1);
     }
 }

@@ -27,11 +27,13 @@ public class GameEnemyCharacter : Character
     private bool m_IsMoveEnable = true;
     public int index;
     public float fTime;
+    public GameObject hpBarObj;
     public Image hpBar;
     private Coroutine m_DieCoroutine;
     private Coroutine m_HittingCoroutine;
     private Coroutine m_AttackingCoroutine;
     private float m_AttackDelayTimer;
+    public GamePlayerCharacter player;
     #region Get,Set
     private bool isDied
     {
@@ -109,6 +111,13 @@ public class GameEnemyCharacter : Character
                 else
                     m_Animator.Play("Run_Hand");
             }
+
+            if (status.iHp == status.iMaxHp)
+                hpBarObj.SetActive(false);
+            else if (status.iHp < status.iMaxHp)
+                hpBarObj.SetActive(true);
+
+            hpBar.fillAmount = (float)status.iHp + (float)status.iMaxHp;
         }
     }
     private void OnCatched()
@@ -152,6 +161,8 @@ public class GameEnemyCharacter : Character
     #region Function
     internal override bool Damaged(int value)
     {
+        player.AddGauge((int)(value * 0.33f));
+
         if (!isDied && !isHitting)
         {
             if (m_AttackingCoroutine != null)

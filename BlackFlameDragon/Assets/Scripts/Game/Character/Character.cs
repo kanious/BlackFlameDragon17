@@ -33,6 +33,8 @@ public class Character : MonoBehaviour {
     }
     #endregion
 
+    public DamagedEffect effect;
+
     #region Event
     protected virtual void Awake()
     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GameManager : MonoBehaviour
 {
     #region Inspector
@@ -12,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     public float fProgressTime = 0f;
     public Transform Player;
-
+    
     public static GameManager Instance = null;
 
     private void Awake()

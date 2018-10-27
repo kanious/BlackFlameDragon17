@@ -5,16 +5,20 @@ using PackageProject.SpecialHelper.CatchHand;
 
 public class DataManager {
 
-    //public static DataManager Instance = null;
+    public static DataManager Instance = null;
 
-    //private void Awake()
-    //{
-    //    if (null == Instance)
-    //        Instance = new DataManager();
+    private void Awake()
+    {
+        if (null == Instance)
+            Instance = this;
+    }
 
-    //    DontDestroyOnLoad(Instance);
-    //}
+    public int Score = 0;
 
+    public void AddScore(int value)
+    {
+        Score += value;
+    }
 }
 
 [System.Serializable]

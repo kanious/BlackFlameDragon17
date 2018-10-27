@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using PackageProject.SpecialHelper.CatchHand;
 
 public class GamePlayerCharacter : Character
@@ -14,7 +15,19 @@ public class GamePlayerCharacter : Character
     [SerializeField] private GameObject m_BlackDragonPrefab;
     #endregion
 
+    public Image HPImage;
+    public Image SkillImage;
+
     #region Event
+    private void Awake()
+    {
+        base.Awake();
+
+        status.iHp = 1000;
+        status.iMaxHp = 1000;
+        status.iGauge = 0;
+        status.iMaxGauge = 100;
+    }
     private void Update()
     {
         //if (Input.GetKeyDown(KeyCode.Space))    //Right
@@ -43,15 +56,43 @@ public class GamePlayerCharacter : Character
         {
             BlackDragon();
         }
+        
+        HPImage.fillAmount = (float)status.iHp / (float)status.iMaxHp;
+        SkillImage.fillAmount = (float)status.iGauge / (float)status.iMaxGauge;
+        
     }
     #endregion
     #region Function
     void BlackDragon()
     {
+        status.iGauge -= 1;
+
         GameObject go = Instantiate(m_BlackDragonPrefab);
         Transform tr = go.transform;
         tr.position = m_BlackDragonRoot.position;
         tr.rotation = m_BlackDragonRoot.rotation;
+    }
+
+    internal override bool Damaged(int value)
+    {
+        status.iHp -= value;
+        AddGauge(value);
+        effect.DamageEffect_On();
+
+        if (0 >= status.iHp)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public void AddGauge(int value)
+    {
+        status.iGauge += value;
+
+        if (100 < status.iGauge)
+            status.iGauge = 100;
     }
     #endregion
 }
