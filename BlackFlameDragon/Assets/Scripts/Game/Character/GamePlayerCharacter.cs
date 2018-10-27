@@ -14,12 +14,14 @@ public class GamePlayerCharacter : Character
     [Header("Prefab")]
     [SerializeField] private GameObject m_BlackDragonPrefab;
     #endregion
-
+    
+    public DamagedEffect effect;
     public Image HPImage;
     public Image SkillImage;
+    public Text scoreText;
 
     #region Event
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
 
@@ -59,7 +61,7 @@ public class GamePlayerCharacter : Character
         
         HPImage.fillAmount = (float)status.iHp / (float)status.iMaxHp;
         SkillImage.fillAmount = (float)status.iGauge / (float)status.iMaxGauge;
-        
+        scoreText.text = "Kill Enemies : " + DataManager.Instance.Score;
     }
     #endregion
     #region Function

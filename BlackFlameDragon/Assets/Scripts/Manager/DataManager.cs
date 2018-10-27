@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using PackageProject.SpecialHelper.CatchHand;
 
-public class DataManager {
-
+public class DataManager : MonoBehaviour
+{
     public static DataManager Instance = null;
 
     private void Awake()
@@ -14,7 +14,6 @@ public class DataManager {
     }
 
     public int Score = 0;
-
     public void AddScore(int value)
     {
         Score += value;
