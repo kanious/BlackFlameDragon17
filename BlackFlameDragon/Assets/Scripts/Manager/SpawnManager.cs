@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour {
 
     public static SpawnManager Instance = null;
-    public GameObject EnemyPrefab;
+    public GameObject[] EnemyPrefab;
     LinkedList<GameObject> EnemyList;
 
     float fSpawnDist = 15f;
@@ -40,7 +40,7 @@ public class SpawnManager : MonoBehaviour {
             fTime = 0f;
 
             float fRandom = Random.Range(-fSpawnAngle, fSpawnAngle);
-            EnemyList.AddLast(Instantiate(EnemyPrefab, GameManager.Instance.Player.transform.position, GameManager.Instance.Player.transform.rotation) as GameObject);
+            EnemyList.AddLast(Instantiate(EnemyPrefab[Random.Range(0, EnemyPrefab.Length)], GameManager.Instance.Player.transform.position, GameManager.Instance.Player.transform.rotation) as GameObject);
             GameObject obj = EnemyList.Last.Value;
             obj.transform.Rotate(0, fRandom, 0);
             obj.transform.Translate(obj.transform.forward * fSpawnDist);

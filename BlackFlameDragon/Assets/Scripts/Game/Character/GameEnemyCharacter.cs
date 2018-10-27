@@ -23,6 +23,12 @@ public class GameEnemyCharacter : Character
     [Header("Balance")]
     [SerializeField] private float m_AttackDelay;
 
+    [Header("Color")]
+    [SerializeField] private Renderer m_BodyRenderer;
+    [SerializeField] private Material[] m_BodyMaterial;
+    [SerializeField] private MeshRenderer[] m_StyleRenderer;
+    [SerializeField] private Material[] m_StyleMaterial;
+
     private float m_MoveDelay = 1.0f;
     private bool m_IsMoveEnable = true;
     public int index;
@@ -88,6 +94,20 @@ public class GameEnemyCharacter : Character
             m_PunchLeft.SetMinSpeed(1000);
         if (m_PunchRight)
             m_PunchRight.SetMinSpeed(1000);*/
+
+        //스타일 변경 
+        m_BodyRenderer.material = m_BodyMaterial[Random.Range(0, m_BodyMaterial.Length)];
+        int index = Random.Range(0, m_StyleRenderer.Length);
+        for (int i = 0; i < m_StyleRenderer.Length; ++i)
+        {
+            if(i == index)
+            {
+                m_StyleRenderer[i].enabled = true;
+                m_StyleRenderer[i].material = m_StyleMaterial[Random.Range(0, m_StyleMaterial.Length)];
+            }
+            else
+                m_StyleRenderer[i].enabled = false;
+        }
     }
     private void Update()
     {
