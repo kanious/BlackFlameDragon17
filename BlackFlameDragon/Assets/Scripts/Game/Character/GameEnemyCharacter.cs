@@ -81,6 +81,8 @@ public class GameEnemyCharacter : Character
             m_Animator.Play("Idle_Hand");
 
         m_Me.SetAttackEnable(false);
+
+        hpBarObj.SetActive(false);
         /*
         if (m_PunchLeft)
             m_PunchLeft.SetMinSpeed(1000);
