@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Rigidbody: {fileID: 54598662816392232}
-  m_CatchCollider: {fileID: 65108192644940822}
-  m_AttackTrigger: []
-  m_Damage: 0
+  m_CatchCollider: {fileID: 65354984945350874}
+  m_AttackTrigger:
+  - {fileID: 65108192644940822}
+  m_Damage: 1000

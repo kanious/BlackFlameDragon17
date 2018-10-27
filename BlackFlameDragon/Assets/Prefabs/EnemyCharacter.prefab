@@ -1611,7 +1611,7 @@ Animator:
   m_GameObject: {fileID: 1048481349735362}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 91236a25376654eb3a92ad126aa88690, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eee70165544d3404aad67d0cb976efe5, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1734,7 +1734,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40688e13002ab403180a9140de313909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Animator: {fileID: 0}
   status:
     iHp: 1000
     iMaxHp: 1000
@@ -1744,7 +1743,9 @@ MonoBehaviour:
     iMaxGauge: 100
     fSpeed: 2
     RightHand: {fileID: 114497235161309638}
+  m_Animator: {fileID: 95411003180156518}
   m_Me: {fileID: 114393242362599478}
+  m_StartingWeaponPrefab: {fileID: 0}
   index: 0
   fTime: 0
   hpBar: {fileID: 114704108260569246}

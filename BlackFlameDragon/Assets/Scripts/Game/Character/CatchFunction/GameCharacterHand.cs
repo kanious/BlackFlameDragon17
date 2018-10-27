@@ -116,36 +116,38 @@ namespace PackageProject.SpecialHelper.CatchHand
         public bool Catch(bool isParentChange = true, CatchOptionEnum catchOption = CatchOptionEnum.Normal)
         {
             if (catchEnableObject)
+                return Catch(catchEnableObject, isParentChange, catchOption);
+            else
+                return false;
+        }
+        public bool Catch(GameCatchObject catchObject, bool isParentChange = true, CatchOptionEnum catchOption = CatchOptionEnum.Normal)
+        {
+            //옵션에 따른 처리
+            switch (catchOption)
             {
-                //옵션에 따른 처리
-                switch(catchOption)
+                case CatchOptionEnum.Normal:
+                    if (0 < catchObject.catchingHandCount)
+                        return false;
+                    break;
+                case CatchOptionEnum.Steal:
+                    catchObject.ReleaseAllForce();
+                    break;
+            }
+
+            //오브젝트 실제 잡기
+            if (catchObject.Catch(this))
+            {
+                catchingObject = catchObject;
+
+                if (isParentChange)
                 {
-                    case CatchOptionEnum.Normal:
-                        if (0 < catchEnableObject.catchingHandCount)
-                            return false;
-                        break;
-                    case CatchOptionEnum.Steal:
-                        catchEnableObject.ReleaseAllForce();
-                        break;
+                    Transform tr = catchingObject.transform;
+                    tr.parent = m_HandTransform;
+                    tr.localPosition = Vector3.zero;
+                    tr.localRotation = Quaternion.identity;
                 }
 
-                //오브젝트 실제 잡기
-                if (catchEnableObject.Catch(this))
-                {
-                    catchingObject = catchEnableObject;
-
-                    if (isParentChange)
-                    {
-                        Transform tr = catchingObject.transform;
-                        tr.parent = m_HandTransform;
-                        tr.localPosition = Vector3.zero;
-                        tr.localRotation = Quaternion.identity;
-                    }
-
-                    return true;
-                }
-                else
-                    return false;
+                return true;
             }
             else
                 return false;

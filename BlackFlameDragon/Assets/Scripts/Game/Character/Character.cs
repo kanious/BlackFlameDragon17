@@ -6,15 +6,20 @@ using PackageProject.SpecialHelper.CatchHand;
 public class Character : MonoBehaviour {
 
     #region Inspector
-    [Header("Component")]
-    [SerializeField] private Animator m_Animator;
-
     [Header("Balance")]
     [SerializeField] protected characterStatus status;
     #endregion
     #region Value
-    private Weapon m_Punch;
-    private Weapon m_CatchingWeapon;
+    protected Weapon m_Punch
+    {
+        get;
+        private set;
+    }
+    protected Weapon m_CatchingWeapon
+    {
+        get;
+        private set;
+    }
     #endregion
 
     #region Event
@@ -23,34 +28,18 @@ public class Character : MonoBehaviour {
         m_Punch = status.RightHand.GetComponent<Weapon>();
         m_Punch.SetOwnerCharacter(this);
     }
-
-    public void OnThrowAnimationEvent()
-    {
-        if(m_CatchingWeapon)
-        {
-            Weapon throwWeapon = m_CatchingWeapon;
-            Release();
-            throwWeapon.objectRigidbody.velocity = transform.TransformDirection(new Vector3(0,3,10));
-        }
-    }
     #endregion
     #region Function
-    public void Move(Vector3 velocity)
+    protected void Catch(Weapon weapon)
     {
-        transform.position += transform.TransformDirection(velocity) * status.fSpeed * Time.deltaTime;
-    }
-    public void Attack()
-    {
-        if (m_CatchingWeapon)
-            m_Animator.Play("Attack");
-        else
-            m_Animator.Play("Punch");
-        //무기의 속도 / 방향에 따라서 데미지 변경하기 코드 만들기
-    }
-    public void Throw()
-    {
-        if (m_CatchingWeapon)
-            m_Animator.Play("Throw");
+        status.RightHand.Catch(weapon);
+        if (status.RightHand.catchingObject)
+        {
+            m_CatchingWeapon = status.RightHand.catchingObject.GetComponent<Weapon>();
+
+            if (m_CatchingWeapon)
+                m_CatchingWeapon.SetOwnerCharacter(this);
+        }
     }
     protected void Catch()
     {
