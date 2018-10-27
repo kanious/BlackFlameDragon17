@@ -12,7 +12,7 @@ namespace PackageProject.SpecialHelper.CatchHand
     {
         #region Inspector
         [Header("Component")]
-        [SerializeField] private Rigidbody m_Rigidbody;
+        [SerializeField] protected Rigidbody m_Rigidbody;
         #endregion
         #region Const
         private const int valCatchingHandListSize = 10; //m_CatchingHand 배열 사이즈

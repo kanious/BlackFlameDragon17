@@ -55,9 +55,9 @@ public class GameEnemyCharacter : Character
         m_Me.onCatched += OnCatched;
         m_Me.onReleased += OnReleased;
 
-        status.iHp = 100;
-        status.iMaxHp = 100;
-        status.iAttack = 5;
+        //status.iHp = 100;
+        //status.iMaxHp = 100;
+        //status.iAttack = 5;
         status.iDefence = 2;
         status.iGauge = 0;
         status.iMaxGauge = 100;
@@ -77,6 +77,7 @@ public class GameEnemyCharacter : Character
         else
             m_Animator.Play("Idle_Hand");
 
+        m_Me.SetAttackEnable(false);
         /*
         if (m_PunchLeft)
             m_PunchLeft.SetMinSpeed(1000);
@@ -112,6 +113,7 @@ public class GameEnemyCharacter : Character
     private void OnCatched()
     {
         m_IsMoveEnable = false;
+        m_Me.SetAttackEnable(true);
     }
     private void OnReleased()
     {
@@ -131,7 +133,10 @@ public class GameEnemyCharacter : Character
     }
     private void OnCollisionStay(Collision collision)
     {
-        if(collision.collider.attachedRigidbody)
+        if (collision.collider.gameObject.name == "Ground" && m_Me.catchingHandCount <= 0)
+            m_Me.SetAttackEnable(false);
+
+        if (collision.collider.attachedRigidbody)
         {
             GamePlayerCharacter cha = collision.collider.attachedRigidbody.GetComponent<GamePlayerCharacter>();
             if(cha)

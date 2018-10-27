@@ -19,6 +19,7 @@ public class Weapon : GameCatchObject
     #region Value
     private bool m_IsPlayerWeapon;
     private Vector3 m_LastedPos;
+    private bool m_AttackEnable = true;
     float minSpeed;
     #endregion
 
@@ -53,7 +54,7 @@ public class Weapon : GameCatchObject
     */
     void OnTriggerEnter(Collider other)
     {
-        if (other.attachedRigidbody)
+        if (m_AttackEnable && other.attachedRigidbody)
         {
             Character target = other.attachedRigidbody.GetComponent<Character>();
 
@@ -105,6 +106,8 @@ public class Weapon : GameCatchObject
 
             transform.SetParent(null);
         }
+
+        m_Rigidbody.velocity = transform.position - m_LastedPos;
     }
     #endregion
     #region Function
@@ -123,6 +126,7 @@ public class Weapon : GameCatchObject
     }
     public void SetAttackEnable(bool isEnable)
     {
+        m_AttackEnable = isEnable;
         for (int i = 0; i < m_AttackTrigger.Length; ++i)
             m_AttackTrigger[i].enabled = isEnable;
     }
