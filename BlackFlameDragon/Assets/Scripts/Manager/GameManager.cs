@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     public float fProgressTime = 0f;
     public Transform Player;
+    public Text CountingText;
+    float remainTime = 60f;
     
     public static GameManager Instance = null;
 
@@ -20,11 +23,23 @@ public class GameManager : MonoBehaviour
     {
         if (null == Instance)
             Instance = this;
+
+        remainTime = 60f;
+        CountingText.text = remainTime.ToString();
     }
 
     private void Update()
     {
         fProgressTime += Time.deltaTime;
+        remainTime -= Time.deltaTime;
+
+        CountingText.text = remainTime.ToString("00.00");
+
+        if(0f >= remainTime)
+        {
+            DataManager.Instance.isDeath(false);
+            SceneManager.LoadScene("Result");
+        }
     }
 
     public void Dist_Check()

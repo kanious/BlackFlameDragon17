@@ -60,9 +60,14 @@ public class GamePlayerCharacter : Character
             BlackDragon();
         }
         
-        HPImage.fillAmount = (float)status.iHp / (float)status.iMaxHp;
-        SkillImage.fillAmount = (float)status.iGauge / (float)status.iMaxGauge;
-        scoreText.text = "Kill Enemies : " + DataManager.Score;
+        if(null != HPImage)
+            HPImage.fillAmount = (float)status.iHp / (float)status.iMaxHp;
+        if(null != SkillImage)
+            SkillImage.fillAmount = (float)status.iGauge / (float)status.iMaxGauge;
+        if(null != scoreText)
+            scoreText.text = DataManager.Score + "명 쓰러뜨림";
+
+        status.iHp -= 10;
     }
     #endregion
     #region Function

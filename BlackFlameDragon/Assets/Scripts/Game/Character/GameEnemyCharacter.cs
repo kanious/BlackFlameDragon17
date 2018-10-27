@@ -139,8 +139,8 @@ public class GameEnemyCharacter : Character
                 hpBarObj.SetActive(false);
             else if (status.iHp < status.iMaxHp)
                 hpBarObj.SetActive(true);
-
-            hpBar.fillAmount = (float)status.iHp + (float)status.iMaxHp;
+            
+            hpBar.fillAmount = (float)status.iHp / (float)status.iMaxHp;
         }
     }
     private void OnCatched()
