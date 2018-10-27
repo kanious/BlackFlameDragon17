@@ -28,6 +28,7 @@ public struct characterStatus
     public int iMaxGauge;
     public float fSpeed;
     public GameCharacterHand RightHand;
+    public GameCharacterHand LeftHand;
 
     //public characterStatus(int hp, int attack, int defence, float speed)
     //{

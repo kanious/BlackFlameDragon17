@@ -141,7 +141,7 @@ public class OVRGrabber : MonoBehaviour
         Quaternion destRot = m_parentTransform.rotation * handRot * m_anchorOffsetRotation;
         GetComponent<Rigidbody>().MovePosition(destPos);
         GetComponent<Rigidbody>().MoveRotation(destRot);
-
+    
         if (!m_parentHeldObject)
         {
             MoveGrabbedObject(destPos, destRot);

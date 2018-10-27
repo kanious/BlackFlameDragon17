@@ -41,7 +41,7 @@ public class Character : MonoBehaviour {
                 m_CatchingWeapon.SetOwnerCharacter(this);
         }
     }
-    protected void Catch()
+    protected void Right_Catch()
     {
         status.RightHand.Catch();
         if (status.RightHand.catchingObject)
@@ -52,10 +52,26 @@ public class Character : MonoBehaviour {
                 m_CatchingWeapon.SetOwnerCharacter(this);
         }
     }
-    protected void Release()
+    protected void Left_Catch()
+    {
+        status.LeftHand.Catch();
+        if (status.LeftHand.catchingObject)
+        {
+            m_CatchingWeapon = status.LeftHand.catchingObject.GetComponent<Weapon>();
+
+            if (m_CatchingWeapon)
+                m_CatchingWeapon.SetOwnerCharacter(this);
+        }
+    }
+    protected void Right_Release()
     {
         m_CatchingWeapon = null;
         status.RightHand.Release();
+    }
+    protected void Left_Release()
+    {
+        m_CatchingWeapon = null;
+        status.LeftHand.Release();
     }
 
     /// <summary>
