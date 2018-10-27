@@ -5,15 +5,45 @@ using PackageProject.SpecialHelper.CatchHand;
 //using UnityEngine.Experimental.UIElements;
 using UnityEngine.UI;
 
-public class GameEnemyCharacter : Character {
+public class GameEnemyCharacter : Character
+{
+    [Header("Component")]
+    [SerializeField] private Animator m_Animator;
+    [SerializeField] private Weapon m_Me;   //자기자신도 플레이어한테는 무기임
+    [SerializeField] private Transform m_AniModel;
+    [SerializeField] private Transform m_DieAnchor;
 
-    [SerializeField] private Weapon m_Me;
+    [Header("Animation")]
+    [SerializeField] private AnimationCurve m_DiePositionCurve;
 
+    [Header("Prefab")]
+    [SerializeField] private GameObject m_StartingWeaponPrefab;   //처음에 가지고 시작할 무기 프리팹
+
+    private float m_MoveDelay = 1.0f;
     private bool m_IsMoveEnable = true;
     public int index;
     public float fTime;
     public Image hpBar;
+    private Coroutine m_DieCoroutine;
+    private Coroutine m_HittingCoroutine;
+    #region Get,Set
+    private bool isDied
+    {
+        get
+        {
+            return (m_DieCoroutine != null);
+        }
+    }
+    private bool isHitting
+    {
+        get
+        {
+            return m_HittingCoroutine != null;
+        }
+    }
+    #endregion
 
+    #region Event
     protected override void Awake()
     {
         m_Me.onCatched += OnCatched;
@@ -26,17 +56,48 @@ public class GameEnemyCharacter : Character {
         status.iGauge = 0;
         status.iMaxGauge = 100;
         status.fSpeed = 2;
-        
-        Debug.Log("hp:" + status.iHp + ", maxHp:" + status.iMaxHp);
-    }
 
+        //시작무기가있을 경우 생성/잡기
+        if (m_StartingWeaponPrefab)
+        {
+            GameObject go = Instantiate(m_StartingWeaponPrefab);
+            Catch(go.GetComponent<Weapon>());
+        }
+
+        //Idle애니 플레이
+        if (m_CatchingWeapon)
+            m_Animator.Play("Idle_Weapon");
+        else
+            m_Animator.Play("Idle_Hand");
+
+    }
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(2.0f);
+        Damaged(1);
+    }
     private void Update()
     {
-        if (m_IsMoveEnable)
+        if (!isDied && !isHitting)
         {
-            this.transform.LookAt(GameManager.Instance.Player.transform);
-            this.transform.position = Vector3.MoveTowards(this.transform.position
-                , GameManager.Instance.Player.transform.position, Time.deltaTime * status.fSpeed);
+            if (0 < m_MoveDelay)
+            {
+                m_MoveDelay -= Time.deltaTime;
+                return;
+            }
+
+            if (m_IsMoveEnable)
+            {
+                this.transform.LookAt(GameManager.Instance.Player.transform);
+                this.transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+                this.transform.position = Vector3.MoveTowards(this.transform.position
+                    , GameManager.Instance.Player.transform.position, Time.deltaTime * status.fSpeed);
+
+                if (m_CatchingWeapon)
+                    m_Animator.Play("Run_Weapon");
+                else
+                    m_Animator.Play("Run_Hand");
+            }
         }
     }
     private void OnCatched()
@@ -50,14 +111,75 @@ public class GameEnemyCharacter : Character {
             m_IsMoveEnable = true;
         }
     }
+    public void OnThrowAnimationEvent()
+    {
+        if (m_CatchingWeapon)
+        {
+            Weapon throwWeapon = m_CatchingWeapon;
+            Release();
+            throwWeapon.objectRigidbody.velocity = transform.TransformDirection(new Vector3(0, 3, 10));
+        }
+    }
+    #endregion
+    #region Function
     internal override bool Damaged(int value)
     {
-        if (base.Damaged(value))
+        if (!isDied && !isHitting)
         {
-            SpawnManager.Instance.RemoveEnemy(gameObject);
+            if (base.Damaged(value))
+            {
+                Release();
+                SpawnManager.Instance.RemoveEnemy(gameObject);
+                m_Animator.Play("Die");
+                m_DieCoroutine = StartCoroutine(DieCoroutine());
+            }
+            else
+            {
+                if (m_CatchingWeapon)
+                    m_Animator.Play("Hit_Weapon");
+                else
+                    m_Animator.Play("Hit_Hand");
+
+                m_HittingCoroutine = StartCoroutine(HitCoroutine());
+            }
             return true;
         }
         else
             return false;
     }
+    IEnumerator DieCoroutine()
+    {
+        float timer = 0;
+        Vector3 start = m_AniModel.localPosition;
+        while(true)
+        {
+            timer += Time.deltaTime * 0.5f;
+
+            m_AniModel.localPosition = Vector3.LerpUnclamped(start, m_DieAnchor.localPosition, m_DiePositionCurve.Evaluate(timer));
+            if (1.0f <= timer)
+                break;
+            else
+                yield return null;
+        }
+        Destroy(gameObject);
+    }
+    public void Attack()
+    {
+        if (m_CatchingWeapon)
+            m_Animator.Play("Attack_Weapon");
+        else
+            m_Animator.Play("Attack_Hand");
+        //무기의 속도 / 방향에 따라서 데미지 변경하기 코드 만들기
+    }
+    public void Throw()
+    {
+        if (m_CatchingWeapon)
+            m_Animator.Play("Throw");
+    }
+    IEnumerator HitCoroutine()
+    {
+        yield return new WaitForSeconds(1.0f);
+        m_HittingCoroutine = null;
+    }
+    #endregion
 }
