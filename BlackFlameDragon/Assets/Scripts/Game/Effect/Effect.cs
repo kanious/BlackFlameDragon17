@@ -18,7 +18,8 @@ public class Effect : MonoBehaviour
         m_Background.SetNativeSize();
         m_Text.sprite = text;
         m_Text.SetNativeSize();
-        transform.LookAt(GameManager.Instance.Player);
+        transform.localEulerAngles = new Vector3(0, 0, Random.Range(-45, 45));
+        //transform.LookAt(GameManager.Instance.Player);
 
         StartCoroutine(EffectCoroutine());
     }
