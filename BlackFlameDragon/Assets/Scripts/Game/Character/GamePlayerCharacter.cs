@@ -8,6 +8,7 @@ public class GamePlayerCharacter : Character
     #region Inspector
     [Header("Component")]
     [SerializeField] private Transform m_BlackDragonRoot;
+    [SerializeField] private GameCharacterHand m_LeftHand;
     [Header("Prefab")]
     [SerializeField] private GameObject m_BlackDragonPrefab;
     #endregion
@@ -15,28 +16,14 @@ public class GamePlayerCharacter : Character
     #region Event
     private void Update()
     {
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        Move(move);
-
-        if (Input.GetKey(KeyCode.Q))
-            transform.localEulerAngles += Vector3.up * -50 * Time.deltaTime;
-        else if (Input.GetKey(KeyCode.E))
-            transform.localEulerAngles += Vector3.up * 50 * Time.deltaTime;
-
-        if (Input.GetKeyDown(KeyCode.Z))
-            Attack();
-        else if (Input.GetKeyDown(KeyCode.Space))            
+        if (Input.GetKeyDown(KeyCode.Space))    //Right
         {
             if (status.RightHand.catchingObject)
                 Release();
             else
                 Catch();
         }
-        else if(Input.GetKeyDown(KeyCode.X))
-        {
-            Throw();
-        }
-        else if(Input.GetKeyDown(KeyCode.C))
+        else if(Input.GetKeyDown(KeyCode.C))    //필살기
         {
             BlackDragon();
         }

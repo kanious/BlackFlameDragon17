@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public float fProgressTime = 0f;
-    public GamePlayerCharacter Player;
+    public Transform Player;
 
     public static GameManager Instance = null;
 
