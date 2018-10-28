@@ -7,11 +7,11 @@ public class IntroManager : MonoBehaviour {
 
     private void Awake()
     {
-        StartGame();
+        //StartGame();
     }
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Game");
+        //SceneManager.LoadScene("Game");
     }
 }

@@ -12,6 +12,7 @@ public class Weapon : GameCatchObject
 
     [Header("Balance")]
     [SerializeField] public int m_Damage;
+    [SerializeField] public int m_UseCount;
     #endregion
     #region Const
     private const int valDamagedCharacterListSize = 10; //데미지를 이미 입은 상태의 캐릭터 리스트의 크기
@@ -75,14 +76,25 @@ public class Weapon : GameCatchObject
         {
             //공격하기(속력에 따른 데미지 배율등을 생각해서 공격, 이미 공격한 캐릭터 리스트에 추가)
             int realDamage = baseDamage;
-            realDamage = (int)(realDamage * GameManager.Instance.GetDamageFactor(Mathf.Sqrt(triggerSpeed)));
+            if(GameManager.Instance)
+                realDamage = (int)(realDamage * GameManager.Instance.GetDamageFactor(Mathf.Sqrt(triggerSpeed)));
 
             //데미지가 0 이상이면 실제 데미지를 입힌다.
             if (0 < realDamage)
             {
+                Debug.Log("FDSA");
                 target.Damaged(realDamage);
                 Vector3 effectPos = (target.transform.position + transform.position) * 0.5f;
                 EffectManager.instance.SpawnEffect(effectPos);
+                if(0 < m_UseCount)
+                {
+                    m_UseCount -= 1;
+                    if(m_UseCount <= 0)
+                    {
+                        ReleaseAllForce();
+                        SetAttackEnable(false);
+                    }
+                }
             }
         }
     }
