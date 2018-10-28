@@ -28,6 +28,7 @@ public class GameEnemyCharacter : Character
     [SerializeField] private Material[] m_BodyMaterial;
     [SerializeField] private MeshRenderer[] m_StyleRenderer;
     [SerializeField] private Material[] m_StyleMaterial;
+    [SerializeField] private Material[] m_HelmetMaterial;
 
     private float m_MoveDelay = 1.0f;
     private bool m_IsMoveEnable = true;
@@ -104,7 +105,10 @@ public class GameEnemyCharacter : Character
             if(i == index)
             {
                 m_StyleRenderer[i].enabled = true;
-                m_StyleRenderer[i].material = m_StyleMaterial[Random.Range(0, m_StyleMaterial.Length)];
+                if(i == 4)
+                    m_StyleRenderer[i].material = m_HelmetMaterial[Random.Range(0, m_HelmetMaterial.Length)];
+                else
+                    m_StyleRenderer[i].material = m_StyleMaterial[Random.Range(0, m_StyleMaterial.Length)];
             }
             else
                 m_StyleRenderer[i].enabled = false;

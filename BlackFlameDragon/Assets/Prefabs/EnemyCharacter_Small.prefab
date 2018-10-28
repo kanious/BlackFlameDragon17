@@ -1908,6 +1908,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: b7f77e7ca640d49de811a715598d2891, type: 2}
   - {fileID: 2100000, guid: 2af0f1b0224d84b50ac42ece22d91876, type: 2}
   - {fileID: 2100000, guid: 8bddb47d7d67e4d1985ab0cbac806ca9, type: 2}
+  m_HelmetMaterial:
+  - {fileID: 2100000, guid: c2ecc7403ebed8f40b42c71d7426c252, type: 2}
+  - {fileID: 2100000, guid: d5337430ecca8b94f97a613db57f0cb5, type: 2}
+  - {fileID: 2100000, guid: b9c01d44f15eaf549b5c68dfebaac599, type: 2}
+  - {fileID: 2100000, guid: c4ec3916957b5b74e95bdf26f50416c1, type: 2}
   index: 0
   fTime: 0
   hpBarObj: {fileID: 1186484593222700}
