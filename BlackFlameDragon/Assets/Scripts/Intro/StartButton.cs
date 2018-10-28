@@ -11,7 +11,7 @@ public class StartButton : Character
     #endregion
     #region Value
     Coroutine coroutine;
-    private float m_StartDisableTimer = 0.0f;
+    private float m_StartDisableTimer = 2.0f;
     #endregion
 
     private void Update()
