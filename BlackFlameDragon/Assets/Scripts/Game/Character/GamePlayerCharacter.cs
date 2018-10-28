@@ -14,12 +14,17 @@ public class GamePlayerCharacter : Character
     [SerializeField] private GameCharacterHand m_RightHand;
     [Header("Prefab")]
     [SerializeField] private GameObject m_BlackDragonPrefab;
+
+    [Header("SoundEFfect")]
+    [SerializeField] private AudioClip m_BlackUseClip;
+    [SerializeField] private AudioClip m_BlackFireClip;
     #endregion
     
     public DamagedEffect effect;
     public Image HPImage;
     public Image SkillImage;
     public Text scoreText;
+    bool isUsingBlackDragon;
 
     #region Event
     protected override void Awake()
@@ -57,6 +62,9 @@ public class GamePlayerCharacter : Character
 
         if (OVRInput.Get(OVRInput.RawButton.X))    //필살기
         {
+            if (!isUsingBlackDragon)
+                m_AudioSource.PlayOneShot(m_BlackUseClip);
+            isUsingBlackDragon = true;
             BlackDragon();
         }
         
@@ -71,6 +79,7 @@ public class GamePlayerCharacter : Character
     #region Function
     void BlackDragon()
     {
+        m_AudioSource.PlayOneShot(m_BlackFireClip);
         status.iGauge -= 1;
 
         GameObject go = Instantiate(m_BlackDragonPrefab);

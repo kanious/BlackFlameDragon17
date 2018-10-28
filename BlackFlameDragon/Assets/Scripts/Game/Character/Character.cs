@@ -6,6 +6,9 @@ using PackageProject.SpecialHelper.CatchHand;
 public class Character : MonoBehaviour {
 
     #region Inspector
+    [Header("Component")]
+    [SerializeField] protected AudioSource m_AudioSource;
+    
     [Header("Balance")]
     [SerializeField] protected characterStatus status;
     #endregion
@@ -95,6 +98,8 @@ public class Character : MonoBehaviour {
     /// </summary>
     internal virtual bool Damaged(int value)
     {
+        if(GameManager.Instance)
+        m_AudioSource.PlayOneShot(GameManager.Instance.m_AttackEffect[Random.Range(0, GameManager.Instance.m_AttackEffect.Length)]);
         status.iHp -= value;
 
         if (0 >= status.iHp)

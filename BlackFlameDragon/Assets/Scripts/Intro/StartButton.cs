@@ -7,6 +7,7 @@ public class StartButton : Character
     #region Inspector
     [SerializeField] private string m_SceneName;
     [SerializeField] private AnimationCurve m_Curve;
+    [SerializeField] private AudioClip[] m_ClickClip;
     #endregion
     #region Value
     Coroutine coroutine;
@@ -20,7 +21,10 @@ public class StartButton : Character
     internal override bool Damaged(int value)
     {
         if (coroutine == null)
+        {
             coroutine = StartCoroutine(Coroutine());
+            m_AudioSource.PlayOneShot(m_ClickClip[Random.Range(0, m_ClickClip.Length)]);
+        }
         return true;
     }
 

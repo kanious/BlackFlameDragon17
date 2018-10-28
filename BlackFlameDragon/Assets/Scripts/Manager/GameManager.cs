@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     [Header("Balance - Attack")]    //공격 관련 밸런스 변수
     [SerializeField] private float m_WeaponDamageMinSpeed;          //해당 값 이하의 속도인 무기는 공격력 배율이 0이다.
     [SerializeField] private float m_WeaponDamageStandardSpeed;     //해당 값의 속도 이상인 무기는 공격력 배율이 1이다.
+
+    [Header("AudioEffect")]
+    [SerializeField] public AudioClip[] m_AttackEffect;    //타격시 효과음(적/플레이어 공유)
     #endregion
 
     public float fProgressTime = 0f;
