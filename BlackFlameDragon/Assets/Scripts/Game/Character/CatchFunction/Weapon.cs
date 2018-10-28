@@ -82,10 +82,11 @@ public class Weapon : GameCatchObject
             //데미지가 0 이상이면 실제 데미지를 입힌다.
             if (0 < realDamage)
             {
-                Debug.Log("FDSA");
+                Debug.Log(target.name);
                 target.Damaged(realDamage);
                 Vector3 effectPos = (target.transform.position + transform.position) * 0.5f;
-                EffectManager.instance.SpawnEffect(effectPos);
+                if (EffectManager.instance)
+                    EffectManager.instance.SpawnEffect(effectPos);
                 if(0 < m_UseCount)
                 {
                     m_UseCount -= 1;

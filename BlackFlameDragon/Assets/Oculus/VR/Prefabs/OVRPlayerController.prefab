@@ -186,7 +186,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.0033765961, y: -1.9775243, z: -0.09925537}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400008}
@@ -2388,7 +2388,7 @@ Animator:
   m_GameObject: {fileID: 1224345473081112}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 5992de32c16eb674aa0e8623ea3b7dcb, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 863b6129f84761c4fb16305b22d45fd3, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2406,7 +2406,7 @@ Animator:
   m_GameObject: {fileID: 1938394903404738}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 5992de32c16eb674aa0e8623ea3b7dcb, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 863b6129f84761c4fb16305b22d45fd3, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2466,7 +2466,7 @@ MonoBehaviour:
   m_Rigidbody: {fileID: 0}
   m_CatchCollider: {fileID: 0}
   m_AttackTrigger: []
-  m_Damage: 0
+  m_Damage: 10
   m_UseCount: 0
 --- !u!114 &114315556064909144
 MonoBehaviour:
@@ -2513,7 +2513,7 @@ MonoBehaviour:
   m_Rigidbody: {fileID: 0}
   m_CatchCollider: {fileID: 0}
   m_AttackTrigger: []
-  m_Damage: 0
+  m_Damage: 10
   m_UseCount: 0
 --- !u!114 &114716929002450600
 MonoBehaviour:
@@ -2541,8 +2541,8 @@ MonoBehaviour:
   m_AudioSource: {fileID: 82676427837790880}
   status:
     iHp: 1000
-    iMaxHp: 1000
-    iAttack: 2
+    iMaxHp: 10000000
+    iAttack: 5
     iDefence: 0
     iGauge: 0
     iMaxGauge: 0
@@ -2554,10 +2554,14 @@ MonoBehaviour:
   m_RightHand: {fileID: 114315556064909144}
   m_BlackDragonPrefab: {fileID: 1215089574487362, guid: 54db17360d95345ecba939d5e15a4289,
     type: 2}
+  m_BlackUseClip: {fileID: 0}
+  m_BlackFireClip: {fileID: 0}
   effect: {fileID: 0}
   HPImage: {fileID: 0}
   SkillImage: {fileID: 0}
   scoreText: {fileID: 0}
+  leftHand: {fileID: 95044215951641432}
+  rightHand: {fileID: 95194751880442238}
 --- !u!114 &114814064252544740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2602,7 +2606,7 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 5992de32c16eb674aa0e8623ea3b7dcb, type: 3}
+  - {fileID: 2100000, guid: 2eced140c104e1d4e9ba610f94196eab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2665,7 +2669,7 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 5992de32c16eb674aa0e8623ea3b7dcb, type: 3}
+  - {fileID: 2100000, guid: 2eced140c104e1d4e9ba610f94196eab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

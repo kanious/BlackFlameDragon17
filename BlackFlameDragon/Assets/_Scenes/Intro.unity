@@ -483,82 +483,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4403875718444344, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4403875718444344, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4403875718444344, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4403875718444344, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4403875718444344, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4392305682386062, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4392305682386062, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4392305682386062, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4392305682386062, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4392305682386062, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -90
-      objectReference: {fileID: 0}
     - target: {fileID: 114787362625537064, guid: ce816f2e6abb0504092c23ed9b970dfd,
         type: 2}
-      propertyPath: status.iMaxHp
-      value: 10000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 114787362625537064, guid: ce816f2e6abb0504092c23ed9b970dfd,
-        type: 2}
-      propertyPath: HPImage
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114787362625537064, guid: ce816f2e6abb0504092c23ed9b970dfd,
-        type: 2}
-      propertyPath: SkillImage
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114787362625537064, guid: ce816f2e6abb0504092c23ed9b970dfd,
-        type: 2}
-      propertyPath: effect
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114787362625537064, guid: ce816f2e6abb0504092c23ed9b970dfd,
-        type: 2}
-      propertyPath: scoreText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 100008, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
-      propertyPath: m_Name
-      value: OVRPlayerController
-      objectReference: {fileID: 0}
-    - target: {fileID: 477154, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 481164, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
+      propertyPath: status.iAttack
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
@@ -1132,6 +1060,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 22aa91cf803222b4ca8033a86c692962, type: 3}
   - {fileID: 8300000, guid: e03e2c6cbb13b0b418cb8559958e9337, type: 3}
   - {fileID: 8300000, guid: 6a2f999083b384944b59368ad1990dd2, type: 3}
+  m_StartDisableTimer: 2
 --- !u!82 &1397114031
 AudioSource:
   m_ObjectHideFlags: 0

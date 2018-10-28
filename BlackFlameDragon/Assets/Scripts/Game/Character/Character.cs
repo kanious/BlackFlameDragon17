@@ -39,13 +39,25 @@ public class Character : MonoBehaviour {
     #region Event
     protected virtual void Awake()
     {
-        m_PunchRight = status.RightHand.GetComponent<Weapon>();
-        m_PunchRight.SetOwnerCharacter(this);
-        m_PunchRight.m_Damage = status.iAttack;
+        if (status.RightHand)
+        {
+            m_PunchRight = status.RightHand.GetComponent<Weapon>();
+            if (status.RightHand)
+            {
+                m_PunchRight.SetOwnerCharacter(this);
+                m_PunchRight.m_Damage = status.iAttack;
+            }
+        }
 
-        m_PunchLeft = status.LeftHand.GetComponent<Weapon>();
-        m_PunchLeft.SetOwnerCharacter(this);
-        m_PunchLeft.m_Damage = status.iAttack;
+        if (status.LeftHand)
+        {
+            m_PunchLeft = status.LeftHand.GetComponent<Weapon>();
+            if (m_PunchLeft)
+            {
+                m_PunchLeft.SetOwnerCharacter(this);
+                m_PunchLeft.m_Damage = status.iAttack;
+            }
+        }
     }
     #endregion
     #region Function

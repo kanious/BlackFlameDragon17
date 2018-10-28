@@ -11,7 +11,7 @@ public class StartButton : Character
     #endregion
     #region Value
     Coroutine coroutine;
-    private float m_StartDisableTimer = 2.0f;
+    public float m_StartDisableTimer = 2.0f;
     #endregion
 
     private void Update()
@@ -20,7 +20,8 @@ public class StartButton : Character
     }
     internal override bool Damaged(int value)
     {
-        if (coroutine == null)
+        Debug.Log(coroutine + " " + m_StartDisableTimer);
+        if (coroutine == null && m_StartDisableTimer <= 0)
         {
             coroutine = StartCoroutine(Coroutine());
             m_AudioSource.PlayOneShot(m_ClickClip[Random.Range(0, m_ClickClip.Length)]);
