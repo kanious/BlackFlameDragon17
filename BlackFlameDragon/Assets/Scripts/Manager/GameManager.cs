@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         fProgressTime += Time.deltaTime;
         remainTime -= Time.deltaTime;
 
-        CountingText.text = remainTime.ToString("00.00");
+        CountingText.text = remainTime.ToString("00");
 
         if(0f >= remainTime)
         {

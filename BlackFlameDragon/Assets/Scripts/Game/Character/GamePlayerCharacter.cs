@@ -65,9 +65,7 @@ public class GamePlayerCharacter : Character
         if(null != SkillImage)
             SkillImage.fillAmount = (float)status.iGauge / (float)status.iMaxGauge;
         if(null != scoreText)
-            scoreText.text = DataManager.Score + "명 쓰러뜨림";
-
-        //status.iHp -= 10;
+            scoreText.text = DataManager.Score.ToString();
     }
     #endregion
     #region Function
