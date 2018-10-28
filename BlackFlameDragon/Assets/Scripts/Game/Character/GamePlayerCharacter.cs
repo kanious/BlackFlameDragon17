@@ -81,6 +81,8 @@ public class GamePlayerCharacter : Character
 
     internal override bool Damaged(int value)
     {
+        effect.DamageEffect_On();
+
         if (base.Damaged(value))
         {
             DataManager.Instance.isDeath(true);

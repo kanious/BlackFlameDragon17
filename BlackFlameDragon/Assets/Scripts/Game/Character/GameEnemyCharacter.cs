@@ -171,12 +171,12 @@ public class GameEnemyCharacter : Character
 
         if (collision.collider.attachedRigidbody)
         {
-            Debug.Log(collision.collider.attachedRigidbody.name);
+            //Debug.Log(collision.collider.attachedRigidbody.name);
             GamePlayerCharacter cha = collision.collider.attachedRigidbody.GetComponent<GamePlayerCharacter>();
             if(cha)
             {
                 Attack();
-                Debug.Log("ASDF");
+                //Debug.Log("ASDF");
             }
         }
     }
@@ -236,7 +236,7 @@ public class GameEnemyCharacter : Character
     }
     public void Attack()
     {
-        Debug.Log("Attack");
+        //Debug.Log("Attack");
         if (m_AttackDelayTimer <= 0 && !isDied && !isHitting && m_AttackingCoroutine == null)
         {
             if (m_PunchLeft)
