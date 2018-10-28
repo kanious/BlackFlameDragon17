@@ -18,7 +18,7 @@ public class GameEnemyCharacter : Character
     [SerializeField] private AnimationCurve m_DiePositionCurve;
 
     [Header("Prefab")]
-    [SerializeField] private GameObject m_StartingWeaponPrefab;   //처음에 가지고 시작할 무기 프리팹
+    [SerializeField] private GameObject[] m_StartingWeaponPrefab;   //처음에 가지고 시작할 무기 프리팹
 
     [Header("Balance")]
     [SerializeField] private float m_AttackDelay;
@@ -75,9 +75,9 @@ public class GameEnemyCharacter : Character
         player = GameObject.Find("PlayerCharacter").GetComponent<GamePlayerCharacter>();
         
         //시작무기가있을 경우 생성/잡기
-        if (m_StartingWeaponPrefab)
+        if (Random.Range(0,3) == 1)
         {
-            GameObject go = Instantiate(m_StartingWeaponPrefab);
+            GameObject go = Instantiate(m_StartingWeaponPrefab[Random.Range(0, m_StartingWeaponPrefab.Length)]);
             Right_Catch(go.GetComponent<Weapon>());
         }
 

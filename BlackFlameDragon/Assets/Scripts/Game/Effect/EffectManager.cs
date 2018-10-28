@@ -34,7 +34,7 @@ public class EffectManager : MonoBehaviour
     {
         GameObject go = Instantiate(m_EffectPrefab);
         go.transform.SetParent(transform);
-        go.transform.localScale = Vector3.zero;
+        go.transform.localScale = Vector3.one;
         go.transform.position = worldPos;
 
         go.GetComponent<Effect>().PlayEffect(m_BackgroundSprite[Random.Range(0, m_BackgroundSprite.Length)], m_TextSprite[Random.Range(0, m_BackgroundSprite.Length)]);

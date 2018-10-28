@@ -374,6 +374,31 @@ MonoBehaviour:
   maxRenderScale: 1
   _headPoseRelativeOffsetRotation: {x: 0, y: 0, z: 0}
   _headPoseRelativeOffsetTranslation: {x: 0, y: 0, z: 0}
+  expandMixedRealityCapturePropertySheet: 0
+  enableMixedReality: 0
+  compositionMethod: 0
+  extraHiddenLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  capturingCameraDevice: 0
+  flipCameraFrameHorizontally: 0
+  flipCameraFrameVertically: 0
+  handPoseStateLatency: 0
+  sandwichCompositionRenderLatency: 0
+  sandwichCompositionBufferedFrames: 8
+  chromaKeyColor: {r: 0, g: 1, b: 0, a: 1}
+  chromaKeySimilarity: 0.6
+  chromaKeySmoothRange: 0.03
+  chromaKeySpillRange: 0.06
+  useDynamicLighting: 0
+  depthQuality: 1
+  dynamicLightingSmoothFactor: 8
+  dynamicLightingDepthVariationClampingValue: 0.001
+  virtualGreenScreenType: 0
+  virtualGreenScreenTopY: 10
+  virtualGreenScreenBottomY: -10
+  virtualGreenScreenApplyDepthCulling: 0
+  virtualGreenScreenDepthTolerance: 0.2
   _trackingOriginType: 0
   usePositionTracking: 1
   useRotationTracking: 1
@@ -2244,8 +2269,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.2, z: 0.4}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.15, y: 0.15, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0.1}
 --- !u!65 &65279613025268956
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2256,8 +2281,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.2, z: 0.4}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.15, y: 0.15, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0.1}
 --- !u!95 &95044215951641432
 Animator:
   serializedVersion: 3
@@ -2346,6 +2371,7 @@ MonoBehaviour:
   m_CatchCollider: {fileID: 0}
   m_AttackTrigger: []
   m_Damage: 0
+  m_UseCount: 0
 --- !u!114 &114315556064909144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2392,6 +2418,7 @@ MonoBehaviour:
   m_CatchCollider: {fileID: 0}
   m_AttackTrigger: []
   m_Damage: 0
+  m_UseCount: 0
 --- !u!114 &114716929002450600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2416,8 +2443,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   status:
-    iHp: 10000000
-    iMaxHp: 10000000
+    iHp: 1000
+    iMaxHp: 1000
     iAttack: 2
     iDefence: 0
     iGauge: 0

@@ -67,7 +67,7 @@ public class GamePlayerCharacter : Character
         if(null != scoreText)
             scoreText.text = DataManager.Score + "명 쓰러뜨림";
 
-        status.iHp -= 10;
+        //status.iHp -= 10;
     }
     #endregion
     #region Function
